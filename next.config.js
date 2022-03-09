@@ -1,5 +1,5 @@
 /*
-* Martfury - Multipurpose Marketplace React Ecommerce Template v2.2.0
+* Siyou - Multipurpose Marketplace React Ecommerce Template v2.2.0
 * Author: nouthemes
 * Homepage: https://themeforest.net/user/nouthemes/portfolio
 * Created at: 2019-11-15T08:00:00+07:00
@@ -15,7 +15,7 @@ const nextSettings = {
     },
     // Change your site title here
     env: {
-        title: 'Martfury',
+        title: 'Siyou',
         titleDescription: 'Multipurpose Marketplace React Ecommerce Template',
     },
 };

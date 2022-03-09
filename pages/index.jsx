@@ -13,10 +13,11 @@ import PageContainer from '~/components/layouts/PageContainer';
 
 const HomepageDefaultPage = () => {
     return (
-        <PageContainer title="Multipurpose Marketplace React Ecommerce Template">
+        <PageContainer title="Siyou Technology Ecommerce">
             <main id="homepage-1">
                 <HomeDefaultBanner />
                 <SiteFeatures />
+                <HomeDefaultDealOfDay collectionSlug="deal-of-the-day" />
                 <HomeDefaultDealOfDay collectionSlug="deal-of-the-day" />
                 <HomeAdsColumns />
                 <HomeDefaultTopCategories />
@@ -36,6 +37,12 @@ const HomepageDefaultPage = () => {
                 <DownLoadApp />
                 <NewArrivals collectionSlug="new-arrivals-products" />
                 <Newletters />
+                <HomeDefaultProductListing
+                       
+                       collectionSlug="consumer-electronics"
+                       title="Consumer Electronics"
+                   
+                />
             </main>
         </PageContainer>
     );

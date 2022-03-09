@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '~/components/elements/common/Logo';
 import SearchHeader from '~/components/shared/headers/modules/SearchHeader';
 import NavigationDefault from '~/components/shared/navigation/NavigationDefault';
 import HeaderActions from '~/components/shared/headers/modules/HeaderActions';
 import { stickyHeader } from '~/utilities/common-helpers';
 import MenuCategoriesDropdown from '~/components/shared/menus/MenuCategoriesDropdown';
+import { userService } from '~/store/auth/authentication/services';
 
 const HeaderDefault = () => {
     useEffect(() => {
@@ -12,8 +13,9 @@ const HeaderDefault = () => {
             window.addEventListener('scroll', stickyHeader);
         }
     }, []);
-
+    
     return (
+        
         <header
             className="header header--1"
             data-sticky="true"
@@ -28,6 +30,7 @@ const HeaderDefault = () => {
                         <SearchHeader />
                     </div>
                     <div className="header__right">
+                        
                         <HeaderActions />
                     </div>
                 </div>

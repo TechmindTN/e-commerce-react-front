@@ -1,14 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Link from 'next/link';
-import { logOut } from '~/store/auth/action';
+import { userService } from '~/store/auth/authentication/services';
 
-const AccountQuickLinks = (props) => {
-    const dispatch = useDispatch();
-    const handleLogout = (e) => {
-        e.preventDefault();
-        dispatch(logOut());
-    };
+const AccountQuickLinks = () => {
+   
     const accountLinks = [
         {
             text: 'Account Information',
@@ -35,7 +31,6 @@ const AccountQuickLinks = (props) => {
             url: '/account/wishlist',
         },
     ];
-    const { isLoggedIn } = props;
 
     // View
     const linksView = accountLinks.map((item) => (
@@ -45,18 +40,26 @@ const AccountQuickLinks = (props) => {
             </Link>
         </li>
     ));
+    const [user, setUser] = useState(null);
 
-    if (isLoggedIn === true) {
+    useEffect(() => {
+        const subscription = userService.user.subscribe(x => setUser(x));
+        return () => subscription.unsubscribe();
+    }, []);
+
+    function logout() {
+        userService.logout();
+    }
+    if (user) {
         return (
             <div className="ps-block--user-account">
                 <i className="icon-user"></i>
                 <div className="ps-block__content">
                     <ul className="ps-list--arrow">
+                        <li>{userService.userValue?.username}</li>
                         {linksView}
                         <li className="ps-block__footer">
-                            <a href="#" onClick={(e) => handleLogout(e)}>
-                                Logout
-                            </a>
+                        <a onClick={logout} className="nav-item nav-link">Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -47,6 +47,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        color:#ba0309;
 
         > * {
             margin: 0 20px;
@@ -63,8 +64,8 @@
         }
     }
 
-    .header__center {
-    }
+    // .header__center {
+    // }
 
     .header__right {
         max-width: 370px;
@@ -72,7 +73,7 @@
 
     .header__top {
         padding: 25px 0;
-        background-color: $color-1st;
+        background-color: #ffffff;
         border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 
         .ps-container,
@@ -276,7 +277,7 @@
         }
 
         .form-group--icon {
-            border: 1px solid #e1e1e1;
+            border: 1px solid #ba0309;
             min-width: 80px;
             border-radius: 4px 0 0 4px;
 

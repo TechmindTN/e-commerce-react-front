@@ -18,6 +18,7 @@ export default function useEcomerce() {
         loading,
         cartItemsOnCookie,
         products,
+        cookies,
         getProducts: async (payload, group = '') => {
             setLoading(true);
             if (payload && payload.length > 0) {

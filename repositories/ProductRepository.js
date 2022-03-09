@@ -1,9 +1,9 @@
-import Repository, { baseUrl, serializeQuery } from './Repository';
+import Repository, { baseUrl,baseproduct, serializeQuery } from './Repository';
 
 class ProductRepository {
     async getRecords(params) {
         const reponse = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(params)}`
+            `${baseproduct}/products?${serializeQuery(params)}`
         )
             .then((response) => {
                 return response.data;
@@ -14,7 +14,7 @@ class ProductRepository {
 
     async getProducts(params) {
         const reponse = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(params)}`
+            `${baseproduct}/products?${serializeQuery(params)}`
         )
             .then((response) => {
                 if (response.data && response.data.length > 0) {
@@ -48,6 +48,7 @@ class ProductRepository {
             .catch((error) => ({ error: JSON.stringify(error) }));
         return reponse;
     }
+   
 
     async getTotalRecords() {
         const reponse = await Repository.get(`${baseUrl}/products/count`)

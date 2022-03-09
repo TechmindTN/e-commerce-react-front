@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import AccountQuickLinksMobile from './AccountQuickLinksMobile';
@@ -16,15 +16,14 @@ const MobileHeaderActions = ({ auth, ecomerce }) => {
                 </a>
             </Link>
 
-            {auth.isLoggedIn && Boolean(auth.isLoggedIn) === true ? (
                 <AccountQuickLinksMobile />
-            ) : (
+           
                 <div className="header__extra">
                     <Link href="/account/login">
-                        <i className="icon-user"></i>
+                        <i className="icon-user" tyle="color:blue"></i>
                     </Link>
                 </div>
-            )}
+            
         </div>
     );
 };

@@ -147,8 +147,8 @@ class MyAccount extends Component {
                                 <aside>
                                     <h5>A small gift for your first purchase</h5>
                                     <p>
-                                        Martfury give $25 as a small gift for your first purchase.
-                                        Welcome to Martfury!
+                                        Siyou give $25 as a small gift for your first purchase.
+                                        Welcome to Siyou!
                                     </p>
                                 </aside>
                             </div>

@@ -12,7 +12,7 @@ const HomeDefaultProductListing = ({ collectionSlug, title }) => {
         {
             title: 'New Arrivals',
             name: 'new-arrivals',
-            slug: collectionSlug,
+            slug: 'collectionSlug',
         },
         {
             title: 'Best seller',

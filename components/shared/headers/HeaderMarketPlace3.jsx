@@ -36,7 +36,7 @@ const HeaderMarketPlace3 = () => {
                             <a className="ps-logo">
                                 q
                                 <img
-                                    src="/static/img/logo_light.png"
+                                    src="/static/img/siyoulogo1.png"
                                     alt="martfury"
                                 />
                             </a>
@@ -87,7 +87,7 @@ const HeaderMarketPlace3 = () => {
                         <ul className="navigation__extra">
                             <li>
                                 <Link href="/vendor/become-a-vendor">
-                                    <a>Sell on Martfury</a>
+                                    <a>Sell on Siyou</a>
                                 </Link>
                             </li>
                             <li>

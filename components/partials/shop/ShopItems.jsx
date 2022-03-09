@@ -87,6 +87,7 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
                 const items = productItems.map((item) => (
                     <div className={classes} key={item.id}>
                         <Product product={item} />
+            
                     </div>
                 ));
                 productItemsView = (
@@ -97,7 +98,7 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
             } else {
                 productItemsView = productItems.map((item) => (
                     <ProductWide product={item} />
-                ));
+                                ));
             }
         } else {
             productItemsView = <p>No product found.</p>;
@@ -105,7 +106,8 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
     } else {
         const skeletonItems = generateTempArray(12).map((item) => (
             <div className={classes} key={item}>
-                <SkeletonProduct />
+            <SkeletonProduct />
+        
             </div>
         ));
         productItemsView = <div className="row">{skeletonItems}</div>;

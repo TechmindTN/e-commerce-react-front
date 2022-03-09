@@ -1,47 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import Router from 'next/router';
+import  Router ,{ useRouter } from 'next/router';
 import { login } from '../../../store/auth/action';
-
-import { Form, Input, notification } from 'antd';
 import { connect } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { userService, alertService } from '~/store/auth/authentication/services';
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+function Login () {
+   
+    const router = useRouter();
+    
+    // form validation rules 
+    const validationSchema = Yup.object().shape({
+        username: Yup.string().required('Username is required'),
+        password: Yup.string().required('Password is required')
+        
+    });
+    const formOptions = { resolver: yupResolver(validationSchema) };
 
-    static getDerivedStateFromProps(props) {
-        if (props.isLoggedIn === true) {
-            Router.push('/');
-        }
-        return false;
-    }
+    // get functions to build form with useForm() hook
+    const { register, handleSubmit, formState } = useForm(formOptions);
+    const { errors } = formState;
 
-    handleFeatureWillUpdate(e) {
-        e.preventDefault();
-        notification.open({
-            message: 'Opp! Something went wrong.',
-            description: 'This feature has been updated later!',
-            duration: 500,
-        });
-    }
-
-    handleLoginSubmit = e => {
-        console.log('test');
-        this.props.dispatch(login());
+    function onSubmit({ username, password }) {
         Router.push('/');
-
-    };
-
-    render() {
-        return (
+        return userService.loogin(username, password)
+            .then(() => {
+                // get return url from query parameters or default to '/'
+                const returnUrl = router.query.returnUrl || '/';
+                router.push(returnUrl);
+                this.props.dispatch(login());
+            })
+            .catch(alertService.error);
+    }
+       return (
             <div className="ps-my-account">
                 <div className="container">
-                    <Form
+                    <form
                         className="ps-form--account"
-                        onFinish={this.handleLoginSubmit.bind(this)}>
+                        onSubmit={handleSubmit(onSubmit)}
+                        >
                         <ul className="ps-tab-list">
                             <li className="active">
                                 <Link href="/account/login">
@@ -58,38 +58,27 @@ class Login extends Component {
                             <div className="ps-form__content">
                                 <h5>Log In Your Account</h5>
                                 <div className="form-group">
-                                    <Form.Item
-                                        name="username"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message:
-                                                    'Please input your email!',
-                                            },
-                                        ]}>
-                                        <Input
-                                            className="form-control"
+                                <label>Username</label>
+                                        <input
+                                            name="username"
                                             type="text"
                                             placeholder="Username or email address"
+                                            name="username" 
+                                            {...register('username')} 
+                                            className={`form-control ${errors.username ? 'is-invalid' : ''}`}
                                         />
-                                    </Form.Item>
+                                        <div className="invalid-feedback">{errors.username?.message}</div>
                                 </div>
                                 <div className="form-group form-forgot">
-                                    <Form.Item
-                                        name="password"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message:
-                                                    'Please input your password!',
-                                            },
-                                        ]}>
-                                        <Input
-                                            className="form-control"
+                                <label>Password</label>
+                                        <input
                                             type="password"
                                             placeholder="Password..."
+                                            name="password" 
+                                            {...register('password')} 
+                                            className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                                         />
-                                    </Form.Item>
+                                        <div className="invalid-feedback">{errors.password?.message}</div>
                                 </div>
                                 <div className="form-group">
                                     <div className="ps-checkbox">
@@ -104,10 +93,11 @@ class Login extends Component {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="form-group submit">
+                                <div className="form-group submit" disabled={formState.isSubmitting}>
                                     <button
                                         type="submit"
                                         className="ps-btn ps-btn--fullwidth">
+                                            {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                         Login
                                     </button>
                                 </div>
@@ -119,9 +109,7 @@ class Login extends Component {
                                         <a
                                             className="facebook"
                                             href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
+                                            >
                                             <i className="fa fa-facebook"></i>
                                         </a>
                                     </li>
@@ -129,9 +117,7 @@ class Login extends Component {
                                         <a
                                             className="google"
                                             href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
+                                            >
                                             <i className="fa fa-google-plus"></i>
                                         </a>
                                     </li>
@@ -139,9 +125,7 @@ class Login extends Component {
                                         <a
                                             className="twitter"
                                             href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
+                                            >
                                             <i className="fa fa-twitter"></i>
                                         </a>
                                     </li>
@@ -149,20 +133,18 @@ class Login extends Component {
                                         <a
                                             className="instagram"
                                             href="#"
-                                            onClick={e =>
-                                                this.handleFeatureWillUpdate(e)
-                                            }>
+                                            >
                                             <i className="fa fa-instagram"></i>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                    </Form>
+                    </form>
                 </div>
             </div>
         );
-    }
+    
 }
 const mapStateToProps = state => {
     return state.auth;

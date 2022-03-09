@@ -3,8 +3,10 @@ import LazyLoad from 'react-lazyload';
 import { baseUrl } from '~/repositories/Repository';
 import { formatCurrency } from '~/utilities/product-helper';
 import Link from 'next/link';
+import useGetProducts from './useGetProducts';
 
 function getImageURL(source, size) {
+    const{product, getProduct}=useGetProducts();
     let image, imageURL;
 
     if (source) {

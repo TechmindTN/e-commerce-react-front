@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import FormChangeUserInformation from '~/components/shared/FormChangeUserInformation';
+import { userService } from '~/store/auth/authentication/services';
 
 const UserInformation = () => {
     const accountLinks = [
@@ -48,7 +49,17 @@ const UserInformation = () => {
             </Link>
         </li>
     ));
+    const [user, setUser] = useState(null);
 
+    useEffect(() => {
+        const subscription = userService.user.subscribe(x => setUser(x));
+        return () => subscription.unsubscribe();
+    }, []);
+
+    function logout() {
+        userService.logout();
+    }
+    { user 
     return (
         <section className="ps-my-account ps-page--account">
             <div className="container">
@@ -60,7 +71,7 @@ const UserInformation = () => {
                                     <img src="/static/img/users/3.jpg" />
                                     <figure>
                                         <figcaption>Hello</figcaption>
-                                        <p>username@gmail.com</p>
+                                        <p>{userService.userValue?.username}</p>
                                     </figure>
                                 </div>
                                 <div className="ps-widget__content">
@@ -84,10 +95,8 @@ const UserInformation = () => {
                                         ))}
                                         <li>
                                             <Link href="/account/my-account">
-                                                <a>
-                                                    <i className="icon-power-switch"></i>
-                                                    Logout
-                                                </a>
+                                            <a onClick={logout} className="nav-item nav-link"><i className="icon-power-switch"></i>Logout</a>
+                                               
                                             </Link>
                                         </li>
                                     </ul>
@@ -104,6 +113,7 @@ const UserInformation = () => {
             </div>
         </section>
     );
+    }
 };
 
 export default UserInformation;

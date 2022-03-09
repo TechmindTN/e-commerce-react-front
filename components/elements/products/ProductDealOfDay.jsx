@@ -23,7 +23,7 @@ const ProductDealOfDay = ({ product }) => {
                     <a className="ps-product__vendor">Young Shop</a>
                 </Link>
                 <div className="ps-product__content">
-                    {StrapiProductPriceExpanded(product)}
+                {StrapiProductPriceExpanded(product)}
                     {title(product)}
                     <div className="ps-product__rating">
                         <Rating />

@@ -7,7 +7,7 @@ import AccountQuickLinks from './AccountQuickLinks';
 
 const ElectronicHeaderActions = ({ auth, ecomerce }) => {
     return (
-        <div className="header__actions">
+        <div className="header__actions" >
             <Link href="/account/wishlist">
                 <a className="header__extra">
                     <i className="icon-heart"></i>
